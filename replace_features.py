@@ -70,6 +70,6 @@ def only_heart_features(data_file, cluster_file):
     
 
 if __name__ == '__main__':
-    # replace('data/x_train.csv','data/heart/cluster_labels_train.csv')
-    # only_heart_features('data/x_train.csv','data/heart/cluster_labels_train.csv')
-    pass
+    replace('data/x_train.csv','data/heart/cluster_labels_train.csv')
+    only_heart_features('data/x_train.csv','data/heart/cluster_labels_train.csv')
+    
