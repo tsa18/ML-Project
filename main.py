@@ -4,14 +4,18 @@ from sklearn.svm import SVC
 from utils import *
 from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder
+from sklearn.neighbors import KNeighborsClassifier
 import os
 import pandas as pd
+
 
 def load_train_data():
     features, labels = get_samples('./data/x_train.csv','./data/y_train.csv')
     print('-----------------------load data finished-----------------------')
     features, labels = under_sample(features,labels)
     print('-----------------------undersample finished-----------------------')
+    lb = LabelEncoder()
+    labels= lb.fit_transform(labels)
     return features, labels
 
 def load_data_by_cluster(cluster_num):
@@ -58,13 +62,16 @@ def train_only_heart_features():
 
 # RF, KNN, XGBoost, SVC
 def main():
-    # features, labels = load_train_data()
+    features, labels = load_train_data()
     # model = RandomForestClassifier(n_estimators=50, min_samples_leaf=3,max_depth=5)
-    # model=SVC(C=1, kernel='linear')
-    # model = XGBClassifier(max_depth=3, learning_rate=0.1, n_estimators=50)
     # train(model,features,labels)
-    # test(model)
+    # model=SVC(C=1, kernel='linear')
+    # model = KNeighborsClassifier(weights='uniform',n_neighbors=5, p=1, metric='minkowski')
 
+    model = XGBClassifier(max_depth=5, learning_rate=0.1, n_estimators=50)
+    train(model,features,labels)
+
+    # test(model)
     # # train on different clusters
     # cluster_nums = [0,1]
     # for cluster_num in cluster_nums:
